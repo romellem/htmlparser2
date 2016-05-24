@@ -1,0 +1,35 @@
+{
+  "name": "RAW tag",
+  "options": {
+    "handler": {},
+    "parser": {}
+  },
+  "html": "<raw><?php \n if (1 << 2) { echo \"<strong>\" . $hello . \"</strong>\"; }\n ?></raw>",
+  "expected": [
+    {
+      "event": "opentagname",
+      "data": [
+        "raw"
+      ]
+    },
+    {
+      "event": "opentag",
+      "data": [
+        "raw",
+        {}
+      ]
+    },
+    {
+      "event": "raw",
+      "data": [
+        "<?php \n if (1 << 2) { echo \"<strong>\" . $hello . \"</strong>\"; }\n ?>"
+      ]
+    },
+    {
+      "event": "closetag",
+      "data": [
+        "raw"
+      ]
+    }
+  ]
+}
