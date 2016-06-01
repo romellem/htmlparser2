@@ -7,7 +7,7 @@
 
 A forgiving HTML/XML/RSS parser *plus a little extra*. The parser can handle streams and provides a callback interface.
 
-## romellem fork:
+## &#x1F195; romellem fork:
 
 This fork includes forks from **htmlparser2**'s dependencies:
 
