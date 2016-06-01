@@ -5,7 +5,50 @@
 [![Build Status](http://img.shields.io/travis/fb55/htmlparser2/master.svg?style=flat)](http://travis-ci.org/fb55/htmlparser2)
 [![Coverage](http://img.shields.io/coveralls/fb55/htmlparser2.svg?style=flat)](https://coveralls.io/r/fb55/htmlparser2)
 
-A forgiving HTML/XML/RSS parser. The parser can handle streams and provides a callback interface.
+A forgiving HTML/XML/RSS parser *plus a little extra*. The parser can handle streams and provides a callback interface.
+
+## romellem fork:
+
+This fork includes forks from **htmlparser2**'s dependencies:
+
+- **[domhandler](https://github.com/fb55/domhandler)**
+- **[domelementtype](https://github.com/fb55/domelementtype)**
+- **[dom-serializer](https://github.com/cheeriojs/dom-serializer)**
+
+As well as
+- **[cheerio](https://github.com/cheeriojs/cheerio)**
+
+The changes in **htmlparser2** and **cheerio** as well as the dependencies mentioned above were all made to create a new special tag that the parser recognizes:
+
+    <raw></raw>
+    
+It does what the name implies: it leaves any text within the `raw` tag untouched.
+
+The original repo for **cheerio** would process the following string as such:
+
+    // Original `cheerio` using original `htmlparser2`
+    var $ = cheerio.load('<raw><?php echo "<strong>" . $hello . "</strong>"; ?></raw>');
+    var processed_html = $.html();
+    
+    console.log(processed_html);
+    // logs '<raw><?php echo "<strong>&quot; . $hello . &quot;&quot;; ?&gt;</raw>'
+    
+Notice how it converts some of the quotes to html entities, and also throws out the closing `strong` tag.
+
+But with my custom additions, we now get
+
+    // New `cheerio` which uses new `htmlparser2`
+    var $ = cheerio.load('<raw><?php echo "<strong>" . $hello . "</strong>"; ?></raw>');
+    var processed_html = $.html();
+    
+    console.log(processed_html);
+    // logs '<?php echo "<strong>" . $hello . "</strong>"; ?>'
+    
+So, the `raw` tag preserved all characters inside, and removed itself after the fact.
+
+> Note: This is "bad" in the sense that by adding the special `raw` tag, this is no longer a strict "HTML parser." It is now an HTML parser plus a little extra. However, I had a need for this (specifically, using [Foundation for Emails](https://github.com/zurb/foundation-emails) in a more dynamic manner) so I made the necessary modifications.
+    
+----
 
 ## Installation
 	npm install htmlparser2
