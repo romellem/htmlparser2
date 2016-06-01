@@ -46,7 +46,7 @@ But with my custom additions, we now get
     
 So, the `raw` tag preserved all characters inside, and removed itself after the fact.
 
-> Note: This is "bad" in the sense that by adding the special `raw` tag, this is no longer a strict "HTML parser." It is now an HTML parser plus a little extra. However, I had a need for this (specifically, using [Foundation for Emails](https://github.com/zurb/foundation-emails) in a more dynamic manner) so I made the necessary modifications.
+> Note: I know that this is quote "bad" in the sense that by adding the special `raw` tag, this is no longer a strict "HTML parser." It is now an HTML parser *plus a little extra*. However, I had a need for this (specifically, using [Foundation for Emails](https://github.com/zurb/foundation-emails) in a more dynamic manner) so I made the necessary modifications to [inky's](https://github.com/zurb/inky) dependencies.
     
 ----
 
